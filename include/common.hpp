@@ -17,4 +17,19 @@
 auto LoadFileAsStream(std::filesystem::path path) -> std::vector<uint32_t>;
 auto LoadImage(std::filesystem::path path) -> sk_sp<SkImage>;
 
+struct InputEvent
+{
+    uint32_t x,y;
+    bool isMousePressed;
+    uint32_t mouseButton;
+    bool anyKeyPressed;
+    uint32_t key;
+};
+
+class View
+{
+    virtual void OnInput(const InputEvent& input) = 0;
+    virtual void OnRender(SkCanvas* canvas) = 0;
+};
+
 #endif // COMMON_HPP
