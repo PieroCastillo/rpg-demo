@@ -17,9 +17,16 @@
 auto LoadFileAsStream(std::filesystem::path path) -> std::vector<uint32_t>;
 auto LoadImage(std::filesystem::path path) -> sk_sp<SkImage>;
 
+struct AnimationAtlas
+{
+    float frameDuration;
+    uint32_t frameOffset;
+    uint32_t frameCount;
+};
+
 struct InputEvent
 {
-    uint32_t x,y;
+    uint32_t x, y;
     bool isMousePressed;
     uint32_t mouseButton;
     bool anyKeyPressed;
@@ -28,6 +35,9 @@ struct InputEvent
 
 class View
 {
+    virtual void Load() = 0;
+    virtual void Pause() = 0;
+    virtual void Destroy() = 0;
     virtual void OnInput(const InputEvent& input) = 0;
     virtual void OnRender(SkCanvas* canvas) = 0;
 };
